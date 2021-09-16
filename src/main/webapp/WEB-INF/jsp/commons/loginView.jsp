@@ -24,15 +24,50 @@
 		<h2 class="text-center">포켓몬센터 매니저 PCM</h2>
 		<div class="w-75 mt-4 mx-auto">
 			<form class="w-100">
-				<input type="text" class="form-control mt-3" placeholder="아이디를 입력해주세요">
-				<input type="password" class="form-control mt-3" placeholder="비밀번호를 입력해주세요">
-				<select class="form-control mt-3">
+				<input type="text" class="form-control mt-3" placeholder="아이디를 입력해주세요" id="loginIdInput">
+				<input type="password" class="form-control mt-3" placeholder="비밀번호를 입력해주세요" id="passwordInput">
+				<select class="form-control mt-3" id="branchInput">
 					<option>지점을 선택해주세요</option>
+					<c:forEach var="branchInfo" items="${branchInfo }">
+						<option data-branch-id="${branchInfo.id }">${branchInfo.branchName }</option>	
+					</c:forEach>
 				</select>
-				<input type="button" class="btn block w-100 btn-primary mt-3" value="로그인">
+				<input type="button" class="btn block w-100 btn-primary mt-3" value="로그인" id="loginBtn">
 			</form>
 		</div>
 	</section>
 </div>
+<script>
+	$(document).ready(function() {
+		
+		
+		$("#loginBtn").on('click', function(e) {
+			e.preventDefault();
+
+			var loginId = $("#loginIdInput").val();
+			var password = $("#passwordInput").val();
+			var branchId = $("#branchInput").find("option:selected").data("branch-id");
+			
+			$.ajax({
+				method: 'post',
+				url: '/commons/sign_in',
+				data: {"loginId": loginId, "password": password, "branchId": branchId},
+				success: function(data) {
+					if (data.result == "success") {
+						alert("로그인 성공");
+						location.href = "/commons/main_view";
+					} else {
+						alert("로그인 실패");
+					}
+				},
+				error: function(error) {
+					alert("error");
+				}
+			});
+			
+		});
+		
+	});
+</script>
 </body>
 </html>

@@ -22,34 +22,115 @@
 <c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 <section class="manage-section d-flex align-items-center justify-content-center">
 	<div>
-		<label class="form-control bg-secondary">직원등록</label>
-		<input type="text" class="form-control" placeholder="아이디">
-		<input type="text" class="form-control" placeholder="비밀번호">
-		<select class="form-control">
-			<option>인턴</option>
-			<option>직원</option>
-			<option>관리자</option>
-		</select>
-		<textarea col="10" row="10" class="form-control"></textarea>
-		<input type="button" class="form-control btn btn-primary" value="등록하기">
+		<form>
+			<label class="form-control bg-secondary">직원등록</label>
+			<input type="text" class="form-control" placeholder="아이디" name="loginId" id="newLoginId">
+			<input type="text" class="form-control" placeholder="비밀번호" name="password" id="newPassword">
+			<select class="form-control" id="newPermission">
+				<option>인턴</option>
+				<option>직원</option>
+				<option>관리자</option>
+			</select>
+			<textarea col="10" row="10" class="form-control" id="newEtc"></textarea>
+			<input id="signUpBtn" type="button" class="form-control btn btn-primary" value="등록하기">
+		</form>
 	</div>
 	<div>
-		<label class="form-control bg-secondary">직원수정</label>
-		<input type="text" class="form-control" placeholder="사번">
-		<input type="text" class="form-control" placeholder="사원명">
-		<select class="form-control">
-			<option>인턴</option>
-			<option>직원</option>
-			<option>관리자</option>
-		</select>
-		<textarea col="10" row="10" class="form-control"></textarea>
-		<div class="d-flex justify-content-between">
-			<input type="button" class="form-control btn btn-danger col-3" value="해고">
-			<input type="button" class="form-control btn btn-primary col-8" value="등록하기">
-		</div>
+		<form>
+			<label class="form-control bg-secondary">직원수정</label>
+			
+			<input type="text" class="form-control" placeholder="사번" id="employeeId">
+			<input type="text" class="form-control" placeholder="사원명" id="employeeName">
+			
+			<select class="form-control" id="employeePermission">
+				<option>인턴</option>
+				<option>직원</option>
+				<option>관리자</option>
+			</select>
+			<textarea col="10" row="10" class="form-control" id="employeeEtc"></textarea>
+			<div class="d-flex justify-content-between">
+				<input type="button" class="form-control btn btn-danger col-3" value="해고" id="fireBtn">
+				<input type="button" class="form-control btn btn-primary col-8" value="등록하기" id="modifyBtn">
+			</div>
+		</form>
 	</div>
 </section>
 <c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
 </div>
+<script>
+	$(document).ready(function() {
+		
+		
+		$("#signUpBtn").on("click", function(e) {
+			e.preventDefault();
+			
+			var newLoginId = $("#newLoginId").val();
+			var newPassword = $("#newPassword").val();
+			var newPermission = $("#newPermission").val();
+			var newEtc = $("#newEtc").val();
+			
+			if(newLoginId == null || newLoginId == "") {
+				alert("아이디를 등록해주세요");
+				return;
+			}
+			if(newPassword == null || newPassword == "") {
+				alert("비밀번호를 등록해주세요");
+				return;
+			}
+			
+			$.ajax({
+				type: "post",
+				url: "/commons/sign_up",
+				data: {"loginId": newLoginId, "password": newPassword, "permission": newPermission, "etc": newEtc},
+				success: function(data) {
+					if(data.result == "success") {
+						alert("신규 직원을 등록하였습니다.");
+					} else {
+						alert("신규 직원 등록 실패");
+					}
+				},
+				error: function(e) {
+					alert("error");
+				}
+			});
+		})
+		
+		$("#modifyBtn").on('click', function(e) {
+			e.preventDefault();
+			
+			var id = $("#employeeId").val();
+			var name = $("#employeeName").val();
+			var permission = $("#employeePermission").val();
+			var etc = $("#employeeEtc").val();
+			
+			if(id == null || id == "") {
+				alert("아이디를 입력해주세요");
+				return;
+			}
+			if(name == null || name == "") {
+				alert("직원명을 입력해주세요");
+				return;
+			}
+			
+			$.ajax({
+				type: "post",
+				url: "/commons/modify",
+				data: {"id": id, "name": name, "permission": permission, "etc": etc},
+				success: function(data) {
+					if(data.result == "success") {
+						alert("신규 정보를 수정하였습니다.");
+					} else {
+						alert("직원 수정 실패");
+					}
+				},
+				error: function(e) {
+					alert("error");
+				}
+			});
+			
+		
+		});
+	})
+</script>
 </body>
 </html>

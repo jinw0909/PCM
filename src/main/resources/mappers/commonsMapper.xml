@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.jinw0909.portfolio.commons.dao.CommonsDAO">
+ <insert id="insertPokemon" parameterType="map">
+ 	INSERT INTO 
+ 	`pokemon`
+ 	(
+ 		`branchId`
+ 		, `pokemonName`
+ 		, `loginId`
+ 		, `password`
+ 		, `permission`
+ 		, `etc`
+ 		, `profileImage`
+ 		, `createdAt`
+ 		, `updatedAt` 
+ 	) VALUES (
+ 		0
+ 		, '익명의 포켓몬스터'
+ 		, #{loginId}
+ 		, #{password}
+ 		, #{permission}
+ 		, #{etc}
+ 		, null
+ 		, now()
+ 		, now()
+ 	)
+ </insert>
+ 
+ <update id="updatePokemon" parameterType="map">
+ 	UPDATE `pokemon`
+ 	SET 
+ 	`permission` = #{permission}
+ 	, `etc` = #{etc}
+ 	, updatedAt = now()
+ 	WHERE `id` = #{id} AND `pokemonName` = #{name}
+ </update>
+ 
+ <select id="selectBranchInfo" resultType="map">
+ 	SELECT
+ 		`id`
+ 		, `branchName`
+ 	FROM
+ 		`branch`
+ </select>
+ 
+ <select id="selectCountByIdPwBr" parameterType="map" resultType="int">
+ 	SELECT
+ 		count(*)
+ 	FROM
+ 		`pokemon`
+ 	WHERE
+ 		`loginId` = #{loginId} AND
+ 		`password` = #{password} AND
+ 		`branchId` = #{branchId}
+ </select>
+ </mapper>
