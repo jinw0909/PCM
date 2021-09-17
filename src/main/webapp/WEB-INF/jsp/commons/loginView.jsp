@@ -29,7 +29,7 @@
 				<select class="form-control mt-3" id="branchInput">
 					<option>지점을 선택해주세요</option>
 					<c:forEach var="branchInfo" items="${branchInfo }">
-						<option data-branch-id="${branchInfo.id }">${branchInfo.branchName }</option>	
+						<option data-branch-id="${branchInfo.id }" data-branch-color="${branchInfo.branchColor}" data-branch-slogan="${branchInfo.branchSlogan }">${branchInfo.branchName }</option>	
 					</c:forEach>
 				</select>
 				<input type="button" class="btn block w-100 btn-primary mt-3" value="로그인" id="loginBtn">

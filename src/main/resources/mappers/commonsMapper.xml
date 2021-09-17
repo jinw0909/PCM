@@ -42,18 +42,28 @@
  	SELECT
  		`id`
  		, `branchName`
+ 		, `branchColor`
+ 		, `branchSlogan`
  	FROM
  		`branch`
  </select>
  
- <select id="selectCountByIdPwBr" parameterType="map" resultType="int">
+ <select id="selectPokemonByLidPwBr" parameterType="map" resultType="com.jinw0909.portfolio.commons.model.Pokemon">
  	SELECT
- 		count(*)
+ 		*
  	FROM
  		`pokemon`
  	WHERE
  		`loginId` = #{loginId} AND
  		`password` = #{password} AND
  		`branchId` = #{branchId}
+ </select>
+ 
+ <select id="selectPokemonById" resultType="com.jinw0909.portfolio.commons.model.Pokemon">
+ 	SELECT 
+ 		* 
+ 	FROM 
+ 		`pokemon`
+ 	WHERE `id` = #{id}
  </select>
  </mapper>
