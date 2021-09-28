@@ -3,6 +3,9 @@ package com.jinw0909.portfolio.commons;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,5 +31,12 @@ public class CommonsController {
 	@GetMapping("/main_view")
 	public String mainView() {
 		return "commons/mainView";
+	}
+	
+	@GetMapping("log_out")
+	public String logOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("session");
+		return "redirect:/commons/login_view";
 	}
 }

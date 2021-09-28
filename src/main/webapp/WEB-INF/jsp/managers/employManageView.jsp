@@ -9,6 +9,7 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!-- Bootstrap Icons -->
@@ -50,7 +51,7 @@
 			<textarea col="10" row="10" class="form-control" id="employeeEtc"></textarea>
 			<div class="d-flex justify-content-between">
 				<input type="button" class="form-control btn btn-danger col-3" value="해고" id="fireBtn">
-				<input type="button" class="form-control btn btn-primary col-8" value="등록하기" id="modifyBtn">
+				<input type="button" class="form-control btn btn-primary col-8" value="수정하기" id="modifyBtn">
 			</div>
 		</form>
 	</div>

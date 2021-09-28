@@ -34,4 +34,11 @@ public interface CommonsDAO {
 			@Param("id") int pokemonId
 			);
 	
+	public int updatePokemonById(
+			@Param("id") int id
+			, @Param("loginId") String loginId
+			, @Param("password") String password
+			, @Param("name") String name
+			, @Param("imagePath") String imagePath
+			);
 }

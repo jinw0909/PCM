@@ -1,12 +1,14 @@
 package com.jinw0909.portfolio.commons.bo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.jinw0909.portfolio.common.EncryptUtils;
+import com.jinw0909.portfolio.common.FileManagerService;
 import com.jinw0909.portfolio.commons.branch.bo.BranchBO;
 import com.jinw0909.portfolio.commons.branch.model.Branch;
 import com.jinw0909.portfolio.commons.dao.CommonsDAO;
@@ -23,7 +25,8 @@ public class CommonsBO {
 	private BranchBO branchBO;
 	
 	public int addPokemon(String loginId, String password, String permission, String etc) {
-		return commonsDAO.insertPokemon(loginId, password, permission, etc);
+		String encryptPassword = EncryptUtils.md5(password);
+		return commonsDAO.insertPokemon(loginId, encryptPassword, permission, etc);
 	}
 	
 	public int modifyPokemon(int id, String name, String permission, String etc) {
@@ -35,8 +38,8 @@ public class CommonsBO {
 	}
 	
 	public Pokemon signInByInfo(String loginId, String password, Integer branchId) {
-		
-		return commonsDAO.selectPokemonByLidPwBr(loginId, password, branchId);
+		String encryptPassword = EncryptUtils.md5(password);
+		return commonsDAO.selectPokemonByLidPwBr(loginId, encryptPassword, branchId);
 	}
 	
 	public PokemonWithBranch getPokemonWithBranch(int pokemonId, Integer branchId) {
@@ -47,5 +50,22 @@ public class CommonsBO {
 		pokemonWithBranch.setBranch(branch);
 		
 		return pokemonWithBranch;
+	}
+	
+	public int modifyPokemonById(int pokemonId, String loginId, String password, String name, MultipartFile file) {
+		
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		String filePath = null;
+		if (file != null) {
+			FileManagerService fileManager = new FileManagerService();
+			filePath = fileManager.saveFile(loginId, file);
+			
+			if (filePath == null) {
+				return -1;
+			}
+		}
+		
+		return commonsDAO.updatePokemonById(pokemonId, loginId, encryptPassword, name, filePath);
 	}
 }

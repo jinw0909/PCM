@@ -66,4 +66,14 @@
  		`pokemon`
  	WHERE `id` = #{id}
  </select>
+ 
+ <update id="updatePokemonById" parameterType="map">
+ 	UPDATE `pokemon`
+ 	SET 
+ 	`loginId` = #{loginId}
+ 	, `password` = #{password}
+ 	, `pokemonName` = #{name}
+ 	, `profileImage` = #{imagePath}
+ 	WHERE `id` = #{id}
+ </update>
  </mapper>
