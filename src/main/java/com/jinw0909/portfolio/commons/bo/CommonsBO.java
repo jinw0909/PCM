@@ -24,9 +24,9 @@ public class CommonsBO {
 	@Autowired
 	private BranchBO branchBO;
 	
-	public int addPokemon(String loginId, String password, String permission, String etc) {
+	public int addPokemon(String loginId, String password, String permission, String etc, int branchId) {
 		String encryptPassword = EncryptUtils.md5(password);
-		return commonsDAO.insertPokemon(loginId, encryptPassword, permission, etc);
+		return commonsDAO.insertPokemon(loginId, encryptPassword, permission, etc, branchId);
 	}
 	
 	public int modifyPokemon(int id, String name, String permission, String etc) {
@@ -67,5 +67,9 @@ public class CommonsBO {
 		}
 		
 		return commonsDAO.updatePokemonById(pokemonId, loginId, encryptPassword, name, filePath);
+	}
+	
+	public List<Map<String, Object>> getByBranchId(int branchId) {
+		return commonsDAO.selectByBranchId(branchId);
 	}
 }

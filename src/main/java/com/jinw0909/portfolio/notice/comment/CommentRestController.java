@@ -1,4 +1,4 @@
-package com.jinw0909.portfolio.notice;
+package com.jinw0909.portfolio.notice.comment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,33 +11,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.jinw0909.portfolio.notice.bo.NoticeBO;
+import com.jinw0909.portfolio.notice.comment.bo.CommentBO;
 
 @RestController
-@RequestMapping("/notice")
-public class NoticeRestController {
-
-	@Autowired
-	private NoticeBO noticeBO; 
+@RequestMapping("/comment")
+public class CommentRestController {
 	
-	@PostMapping("/create_notice")
-	public Map<String, String> createNotice(
-			@RequestParam("notice") String notice
-			, @RequestParam(value = "file", required = false) MultipartFile file
+	@Autowired
+	private CommentBO commentBO;
+	
+	@PostMapping("/create_comment")
+	public Map<String, String> createComment(
+			@RequestParam("noticeId") int noticeId
+			, @RequestParam("comment") String comment
 			, HttpServletRequest request
 			) {
 		HttpSession session = request.getSession();
+		String branchName = (String)session.getAttribute("branchName");
+		String permission = (String)session.getAttribute("permission");
 		String pokemonName = (String)session.getAttribute("pokemonName");
+		
 		Map<String, String> result = new HashMap<>();
-		int count = noticeBO.addNotice(pokemonName, notice, file);
-		if (count >= 0) {
+		
+		int count = commentBO.addComment(noticeId, comment, pokemonName, branchName, permission);
+		if (count >= 1) {
 			result.put("result", "success");
-			
 		} else {
 			result.put("result", "failure");
 		}
+		
 		return result;
 	}
 }

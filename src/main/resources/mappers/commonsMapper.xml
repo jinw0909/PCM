@@ -17,7 +17,7 @@
  		, `createdAt`
  		, `updatedAt` 
  	) VALUES (
- 		0
+ 		#{branchId}
  		, '익명의 포켓몬스터'
  		, #{loginId}
  		, #{password}
@@ -76,4 +76,16 @@
  	, `profileImage` = #{imagePath}
  	WHERE `id` = #{id}
  </update>
+ 
+ <select id="selectByBranchId" parameterType="int" resultType="map">
+ 	SELECT
+ 		`headCount`
+ 		, `totalRemedy`
+ 		, `approval`
+ 		, `createdAt`
+ 	FROM
+ 		`request`
+ 	WHERE
+ 		`branchId` = #{branchId}
+ </select>
  </mapper>

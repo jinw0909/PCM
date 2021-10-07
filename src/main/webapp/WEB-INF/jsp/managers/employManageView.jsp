@@ -69,6 +69,8 @@
 			var newPassword = $("#newPassword").val();
 			var newPermission = $("#newPermission").val();
 			var newEtc = $("#newEtc").val();
+			var newBranchId = ${branchId}
+			console.log(newBranchId);
 			
 			if(newLoginId == null || newLoginId == "") {
 				alert("아이디를 등록해주세요");
@@ -82,7 +84,7 @@
 			$.ajax({
 				type: "post",
 				url: "/commons/sign_up",
-				data: {"loginId": newLoginId, "password": newPassword, "permission": newPermission, "etc": newEtc},
+				data: {"loginId": newLoginId, "password": newPassword, "permission": newPermission, "etc": newEtc, "branchId": newBranchId},
 				success: function(data) {
 					if(data.result == "success") {
 						alert("신규 직원을 등록하였습니다.");

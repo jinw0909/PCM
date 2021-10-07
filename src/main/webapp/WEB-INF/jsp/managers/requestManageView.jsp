@@ -22,8 +22,8 @@
 <div class="manage-container container d-flex flex-column justify-content-center">
 <c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 <section class="manage-section d-flex flex-column justify-content-around">
-	<h2>처리하지 않은 요청서가 2건 있습니다.</h2>
-	<h3 class="text-primary">오늘 승인한 요청량 총 5,500개</h3>
+	<h2>처리하지 않은 요청서가 ${requestList.size() }개 있습니다</h2>
+	<h3 class="text-primary">오늘 승인한 요청량 총 <span id="totalIssued"></span>개</h3>
 	<table class="table text-center">
 		<thead>
 			<tr>
@@ -34,24 +34,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>9월 15일 오후 2시</td>
-				<td>버터플</td>
-				<td>300개</td>
-				<td>
-					<button class="btn btn-danger btn-small">기각</button>
-					<button class="btn btn-info btn-small">승인</button>
-				</td>
+		<c:forEach var="request" items="${requestList }">
+			<tr class="request" data-request-id="${request.id }">
+					<td>${request.createdAt }</td>
+					<td>${request.pokemonName }</td>
+					<td>${request.totalRemedy }개</td>
 			</tr>
-			<tr>
-				<td>9월 15일 오후 1시</td>
-				<td>피죤</td>
-				<td>200개</td>
-				<td>
-					<button class="btn btn-danger btn-small">기각</button>
-					<button class="btn btn-info btn-small">승인</button>
-				</td>
-			</tr>
+		</c:forEach>
 		</tbody>
 	</table>
 	<div class="d-flex justify-content-center">
@@ -65,6 +54,35 @@
 	<h3>총 700개가 요청됩니다.</h3>
 </section>
 <c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
+<script>
+	$(document).ready(function() {
+		$(".request").on("click", function() {
+			let requestId = $(this).data("request-id");
+			console.log(requestId);
+			location.href = "/managers/request_detail_view?requestId=" + $(this).data("request-id");
+			
+			
+		});
+		
+		$.ajax({
+			method: "get",
+			url: "/commons/summarize",
+			success: function(data) {
+				let totalIssued = 0;
+				console.log(data);
+				for (summary of data) {
+					if (summary.approval == true) {
+						totalIssued += summary.totalRemedy;
+					}
+				}
+				$("#totalIssued").text(totalIssued.toLocaleString());
+			},
+			error: function(e) {
+				alert("error");
+			}
+		});
+	});
+</script>
 </div>
 
 </body>

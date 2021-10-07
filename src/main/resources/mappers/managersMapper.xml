@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.jinw0909.portfolio.managers.dao.ManagersDAO">
+ 	<select id="selectRequestByBranch" resultType="com.jinw0909.portfolio.members.model.Request">
+ 		SELECT
+ 			`id`
+ 			, `pokemonName` 
+ 			, `patients`
+ 			, `totalRemedy`
+ 			, `headCount`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM 
+ 			`request`
+ 		WHERE
+ 			`branchId` = #{branchId} AND
+ 			`approval` = 'false' AND
+ 			`denial` IS NULL
+ 	</select>
+ 	
+ 	<select id="selectRequestById" resultType="com.jinw0909.portfolio.members.model.Request">
+ 		SELECT
+ 			`id`
+ 			, `pokemonName`
+ 			, `levels`
+ 			, `types`
+ 			, `patients`
+ 			, `headCount`
+ 			, `remedy`
+ 			, `totalRemedy`
+ 			, `etc`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`request`
+ 		WHERE
+ 			`id` = #{requestId}
+ 	</select>
+ 	
+ 	<update id="updateDenialById" parameterType="map">
+ 		UPDATE
+ 			`request`
+ 		SET
+ 			`denial` = #{denial}
+ 		WHERE
+ 			`id` = #{requestId}
+ 	</update>
+ 	
+ 	<update id="updateApprovalById" parameterType="int">
+ 		UPDATE
+ 			`request`
+ 		SET
+ 			`approval` = true
+ 		WHERE
+ 			`id` = #{requestId}
+ 	</update>
+ </mapper>

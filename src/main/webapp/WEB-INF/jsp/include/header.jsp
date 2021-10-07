@@ -3,13 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
 <div class="d-flex justify-content-between" style="background: ${branchColor}">
-	<div>${branchName} ${permission } ${pokemonName}님 환영합니다.</div>
-	
+	<div><a href="/commons/main_view">${branchName}</a> ${permission } ${pokemonName}님 환영합니다.</div>
+	<div id="clock"></div>
 	<div class="dropdown">
 	  <input style="background: url(${picture}); background-size: cover" class="picture dropdown-toggle" type="button" id="dropdownMenuButton1"  data-bs-toggle="dropdown" aria-expanded="false">
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-	    <li><a class="dropdown-item" href="/commons/log_out">로그아웃</a></li>
+	  	<li><a class="dropdown-item" href="/commons/main_view">메인페이지</a></li>
 	    <li><a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" href="#">정보수정</a></li>
+	    <li><a class="dropdown-item" href="/commons/log_out">로그아웃</a></li>
 	  </ul>
 	</div>
 	
@@ -99,6 +100,32 @@
 			});
 			
 		});
+		
+		var clockTarget = document.getElementById("clock");
+		
+		function clock() {
+		    var date = new Date();
+		    var month = date.getMonth();
+		    var clockDate = date.getDate();
+		    var day = date.getDay();
+		    var week = ['일', '월', '화', '수', '목', '금', '토'];
+		    var hours = date.getHours();
+		    if (hours < 10) { hours = "0" + hours} else { hours = hours }
+		    var minutes = date.getMinutes();
+		    if (minutes < 10) { minutes = "0" + minutes} else { minutes = minutes }
+		    var seconds = date.getSeconds();
+		    if (seconds < 10) { seconds = "0" + seconds} else { seconds = seconds }
+		    
+		    clockTarget.innerText = (month+1) + "월 " + clockDate + "일" + week[day] + "요일" + hours + ":" + minutes;
+
+		}
+		
+		function init() {
+			clock();
+			setInterval(clock, 1000);
+		}
+
+		init();
 		
 	});
 </script>

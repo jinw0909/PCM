@@ -24,26 +24,32 @@
 			<div class="create-notice">
 				<textarea rows="10" class="form-control" id="noticeInput"></textarea>
 				<input type="file" class="form-control w-25" id="fileInput">
-				<input type="button" class="form-control btn btn-primary" value="글쓰기" id="noticeBtn" data-pokemon-name=${pokemonName }>
+				<input type="button" class="form-control btn btn-primary" value="글쓰기" id="noticeBtn">
 			</div>
-			<div class="notice-box">
-				<div class="notice mt-5">
-					<h3>공지1</h3>
-					<div class="notice-image"></div>
-					<div class="notice-content">다음주 월요일부터 임직원 대상으로 이벤트 진행 예정이오니 많은 참가 부탁드립니다.</div>
-					<div class="notice-time">2021-09-15</div>
-				</div>
-				<div class="input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text">댓글 작성</span>
+			
+			<c:forEach var="notice" items="${noticeList }" varStatus="status">
+				<div class="notice-box my-5">
+					<div class="notice">
+						<h3>공지 ${status.count }</h3>
+						<div class="notice-image">
+							<img src="${notice.notice.imagePath}">
+						</div>
+						<div class="notice-content">${notice.notice.content }</div>
+						<div class="notice-time">${notice.notice.createdAt }</div>
 					</div>
-					<input type="text" class="form-control" id="commentInput" data-branch-name=${branchName}>
+					<div class="input-group">
+						<input type="text" class="form-control" id="commentInput-${notice.notice.id }" ">
+						<button class="input-group-text commentBtn" data-notice-id="${notice.notice.id}">댓글 작성</button>
+					</div>
+					<c:forEach var = "comment" items="${notice.commentList}">
+						<div class="comment mt-3">
+							<b class="comment-creator">${comment.branchName} ${comment.pokemonName } ${comment.permission} </b>
+							<div class="comment-content">${comment.content }</div>
+						</div>
+					</c:forEach>
 				</div>
-				<div class="comment mt-3">
-					<b class="comment-creator">태초마을지점 꼬부기 매니저</b>
-					<div class="comment-content">좋아요!</div>
-				</div>
-			</div>
+			</c:forEach>
+			
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
 	</div>
@@ -55,12 +61,9 @@
 				
 				let formData = new FormData();
 				let notice = $("#noticeInput").val();
-				let file = $("#fileInput").val();
-				let pokemonName = $("#noticeBtn").data("pokemonName");
-				console.log(pokemonName);
+				let file = $("#fileInput")[0].files[0];
 				formData.append("notice", notice);
 				formData.append("file", file);
-				formData.append("pokemonName", pokemonName);
 				
 				$.ajax({
 					method: "post",
@@ -72,6 +75,7 @@
 					success: function(data) {
 						if (data.result == "success") {
 							alert("글쓰기 성공");
+							location.reload();
 						} else {
 							alert("글쓰기 실패");
 						}
@@ -83,6 +87,31 @@
 					
 				});
 			});
+			
+			$(".commentBtn").on("click", function() {
+				let noticeId = $(this).data("notice-id");
+				let comment = $("#commentInput-" + noticeId).val();
+				console.log(noticeId);
+				$.ajax({
+					method: "post",
+					url: "/comment/create_comment",
+					data: {
+						"comment": comment, 
+						"noticeId": noticeId,
+					},
+					success: function(data) {
+						if (data.result == "success") {
+							alert("댓글 작성 성공");
+						} else {
+							alert("댓글 작성 실패");
+						}
+					},
+					error: function(e) {
+						alert("error");
+					}
+				});
+			});
+			
 		})
 	</script>
 </body>

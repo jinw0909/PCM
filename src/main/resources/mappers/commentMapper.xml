@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.jinw0909.portfolio.notice.comment.dao.CommentDAO">
+ 
+ 	<select id="selectCommentListByNoticeId" parameterType="int" resultType="com.jinw0909.portfolio.notice.comment.model.Comment"> 
+ 		SELECT 
+ 			`id`
+ 			, `noticeId`
+ 			, `pokemonName`
+ 			, `content`
+ 			, `branchName`
+ 			, `permission`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`comment`
+ 		WHERE
+ 			`noticeId` = #{noticeId}
+ 	</select>
+ 	
+ 	<insert id="insertComment" parameterType="map">
+ 		INSERT INTO
+ 			`comment` (
+ 				`noticeId`
+ 				,  `pokemonName`
+ 				, `content`
+	 			, `branchName`
+	 			, `permission`
+	 			, `createdAt`
+	 			, `updatedAt`
+ 			) VALUES (
+ 				#{noticeId}
+ 				, #{pokemonName}
+ 				, #{comment}
+ 				, #{branchName}
+ 				, #{permission}
+ 				, now()
+ 				, now()
+ 			)
+ 	</insert>
+ </mapper>

@@ -20,16 +20,16 @@
 <body>
 <div class="main-container container d-flex flex-column justify-content-center">
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
-	<h2 class="mt-4">오늘 총 152마리의 포켓몬스터를 치료하였습니다.</h2>
+	<h2 class="mt-4">오늘 총 <span id="showHeadCount"></span>마리의 포켓몬스터를 치료하였습니다.</h2>
 	<section class="main-section d-flex justify-content-around">
 		<div class="d-flex justify-content-center align-items-center">
-			<div class="circle">치료</div>
+			<a href="/members/request_view" class="circle">치료</a>
 		</div>
 		<div class="d-flex justify-content-center align-items-center">
-			<div class="circle">공지</div>
+			<a href="/notice/timeline_view" class="circle">공지</a>
 		</div>
 		<div class="d-flex justify-content-center align-items-center">
-			<div class="circle">지점</div>
+			<a href="/managers/manage_view" class="circle">지점</a>
 		</div>
 		
 	</section>
@@ -41,5 +41,31 @@
 	</div>
 	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
 </div>
+<script>
+	$(document).ready(function() {
+		$.ajax({
+			type: "get",
+			url: "/commons/summarize",
+			success: function(data) {
+				let totalHeadCount = 0;
+				let now = new Date();
+				let start = now.setHours(0,0,0,0);
+				let createdAt =  Date.parse(new Date(data[0].createdAt));
+				console.log(createdAt);
+				
+				for (summary of data) {
+					if (summary.approval == true && start < Date.parse(new Date(summary.createdAt))) {
+						totalHeadCount += summary.headCount
+					}
+				}
+				$("#showHeadCount").text(totalHeadCount);
+				
+			},
+			error: function(e) {
+				alert("error");
+			}
+		})
+	});
+</script>
 </body>
 </html>

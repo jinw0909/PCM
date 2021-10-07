@@ -1,12 +1,14 @@
 package com.jinw0909.portfolio.commons;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,19 +25,20 @@ public class CommonsRestController {
 	
 	@Autowired
 	private CommonsBO commonsBO;
-
+	
 	@PostMapping("/sign_up")
 	public Map<String, String> signUp(
 			@RequestParam("loginId") String loginId
 			, @RequestParam("password") String password
 			, @RequestParam("permission") String permission
 			, @RequestParam(value = "etc", required = false) String etc
+			, @RequestParam("branchId") int branchId
 			) {
 		
 		
 		
 		Map<String, String> result = new HashMap<>();
-		int count = commonsBO.addPokemon(loginId, password, permission, etc);
+		int count = commonsBO.addPokemon(loginId, password, permission, etc, branchId);
 		if (count == 1) {
 			result.put("result", "success");
 		} else {
@@ -77,6 +80,7 @@ public class CommonsRestController {
 			session.setAttribute("pokemonId", pwb.getPokemon().getId());
 			session.setAttribute("pokemonName", pwb.getPokemon().getPokemonName());
 			session.setAttribute("picture", pwb.getPokemon().getProfileImage());
+			session.setAttribute("branchId", pwb.getBranch().getId());
 			session.setAttribute("branchName", pwb.getBranch().getBranchName());
 			session.setAttribute("branchColor", pwb.getBranch().getBranchColor());
 			session.setAttribute("branchSlogan", pwb.getBranch().getBranchSlogan());
@@ -109,6 +113,14 @@ public class CommonsRestController {
 			result.put("result", "failure");
 		}
 		return result;
+	}
+	
+	@GetMapping("/summarize")
+	public List<Map<String, Object>> summarizeBranch(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		int branchId = (Integer)session.getAttribute("branchId");
+		List<Map<String, Object>> summary = commonsBO.getByBranchId(branchId);
+		return summary;
 	}
 	
 }

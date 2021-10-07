@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.jinw0909.portfolio.members.dao.MembersDAO">
+ 	<insert id="insertRequest" parameterType="map">
+ 		INSERT INTO
+ 			`request` (
+ 				`pokemonId`
+ 				, `branchId`
+ 				, `pokemonName`
+ 				, `patients`
+ 				, `levels`
+ 				, `types`
+ 				, `etc`
+ 				, `trainerName`
+ 				, `remedy`
+ 				, `totalRemedy`
+ 				, `headCount`
+ 				, `createdAt`
+ 				, `updatedAt`
+ 			) VALUES (
+ 				#{pokemonId}
+ 				, #{branchId}
+ 				, #{pokemonName}
+ 				, #{patients}
+ 				, #{levels}
+ 				, #{types}
+ 				, #{etc}
+ 				, #{trainerName}
+ 				, #{remedy}
+ 				, #{totalRemedy}
+ 				, #{headCount}
+ 				, now()
+ 				, now()
+ 			)
+ 	</insert>
+ 	
+ 	<select id="selectRequestListById" parameterType="int" resultType="com.jinw0909.portfolio.members.model.Request">
+ 		SELECT
+ 			`id` 
+ 			, `patients`
+ 			, `trainerName`
+ 			, `remedy`
+ 			, `totalRemedy`
+ 			, `patients`
+ 			, `headCount`
+ 			, `approval`
+ 			, `denial`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM 
+ 			`request`
+ 		WHERE
+ 			`pokemonId` = #{pokemonId} 
+ 	</select>
+ </mapper>

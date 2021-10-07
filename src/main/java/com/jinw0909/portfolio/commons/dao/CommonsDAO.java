@@ -14,7 +14,8 @@ public interface CommonsDAO {
 			@Param("loginId") String loginId
 			, @Param("password") String password
 			, @Param("permission") String permission
-			, @Param("etc") String etc);
+			, @Param("etc") String etc
+			, @Param("branchId") int branchId);
 	
 	public int updatePokemon(
 			@Param("id") int id
@@ -41,4 +42,6 @@ public interface CommonsDAO {
 			, @Param("name") String name
 			, @Param("imagePath") String imagePath
 			);
+	
+	public List<Map<String, Object>> selectByBranchId(@Param("branchId") int branchId);
 }

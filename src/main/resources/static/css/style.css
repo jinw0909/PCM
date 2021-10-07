@@ -61,8 +61,93 @@
 	border: 1px solid blue;
 }
 .notice-image {
-	height: 10rem;
+	min-height: 7rem;
+}
+.notice-image > img {
+	width: 100%;
 }
 .comment {
 	border: 1px solid blue;
 }
+
+.type-select[data-chosen="노말"]{
+	background: rgba(173, 164, 148, 0.5);
+}
+.type-select[data-chosen="불꽃"]{
+	background: rgba(199, 32, 1, 0.5);
+}
+.type-select[data-chosen="물"]{
+	background: rgba(1, 102, 194, 0.5);
+}
+.type-select[data-chosen="풀"]{
+	background: rgba(56, 154, 0, 0.5);
+}
+.type-select[data-chosen="전기"]{
+	background: rgba(251, 185, 23, 0.5);
+}
+.type-select[data-chosen="얼음"] {
+	background: rgba(58, 160, 193, 0.5);
+}
+.type-select[data-chosen="격투"] {
+	background: rgba(95, 35, 16, 0.5);
+}
+.type-select[data-chosen="독"] {
+	background: rgba(107, 36, 110, 0.5);
+}
+.type-select[data-chosen="땅"] {
+	background: rgba(173, 140, 51, 0.5);
+}
+.type-select[data-chosen="비행"] {
+	background: rgba(92, 114, 211, 0.5);
+}
+.type-select[data-chosen="에스퍼"] {
+	background: rgba(219, 48, 101, 0.5);
+}
+.type-select[data-chosen="벌레"] {
+	background: rgba(136, 150, 15, 0.5);
+}
+.type-select[data-chosen="바위"] {
+	background: rgba(158, 134, 60, 0.5);
+}
+.type-select[data-chosen="고스트"] {
+	background: rgba(69, 69, 147, 0.5);
+}
+.type-select[data-chosen="드래곤"] {
+	background: rgba(78, 59, 164, 0.5);
+}
+.type-select[data-chosen="악"] {
+	background: rgba(60, 45, 34, 0.5);
+}
+.type-select[data-chosen="강철"] {
+	background: rgba(142, 142, 159, 0.5);
+}
+.type-select[data-chosen="페어리"] {
+	background: rgba(223, 142, 223, 0.5);
+}
+.request,
+.request-check {
+	cursor: pointer;
+}
+.request:hover,
+.request-check:hover {
+	background: #ddd;
+}
+
+/* 노말 : #ADA494 173, 164, 148
+불꽃 : #C72001 199, 32, 1
+물 : #0166C2 1, 102, 194
+풀 : #389A00 56, 154, 0
+전기 : #FBB917 251, 185, 23
+얼음 : #3AA0C1 58, 160, 193
+격투 : #5F2310 95, 35, 16
+독 : #6B246E 107, 36, 110
+땅 : #AD8C33 173, 140, 51
+비행 : #5C72D3 92, 114, 211
+에스퍼 : #DB3065 219, 48, 101
+벌레 : #88960F 136, 150, 15
+바위 : #9E863C 158, 134, 60
+고스트 : #454593 69, 69, 147
+드래곤 : #4E3BA4 78, 59, 164
+악 : #3C2D22 60, 45, 34
+강철 : #8E8E9F 142, 142, 159
+페어리 : #DF8EDF 223, 142, 223 */
