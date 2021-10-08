@@ -77,15 +77,42 @@
  	WHERE `id` = #{id}
  </update>
  
- <select id="selectByBranchId" parameterType="int" resultType="map">
- 	SELECT
- 		`headCount`
- 		, `totalRemedy`
- 		, `approval`
- 		, `createdAt`
- 	FROM
- 		`request`
- 	WHERE
- 		`branchId` = #{branchId}
+ <select id="selectByParams" parameterType="Integer" resultType="map">
+ <choose>
+ 	<when test="branchId == null and pokemonId == null" >
+ 		SELECT
+ 			`branchId`
+	 		, `headCount`
+	 		, `totalRemedy`
+	 		, `approval`
+	 		, `createdAt`
+	 	FROM
+	 		`request`
+ 	</when>
+ 	<when test="pokemonId == null" >
+ 		SELECT
+	 		`headCount`
+	 		, `totalRemedy`
+	 		, `approval`
+	 		, `createdAt`
+	 	FROM
+	 		`request`
+	 	WHERE
+	 		`branchId` = #{branchId}
+ 	</when>
+ 	<otherwise>
+ 		SELECT
+	 		`headCount`
+	 		, `totalRemedy`
+	 		, `approval`
+	 		, `createdAt`
+	 	FROM
+	 		`request`
+	 	WHERE
+	 		`branchId` = #{branchId} AND
+	 		`pokemonId` = #{pokemonId}
+ 	</otherwise>
+ </choose>
  </select>
+ 
  </mapper>

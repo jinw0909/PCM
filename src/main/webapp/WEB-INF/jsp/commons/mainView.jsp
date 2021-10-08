@@ -46,15 +46,16 @@
 		$.ajax({
 			type: "get",
 			url: "/commons/summarize",
+			data: {"branchId": ${branchId}},
 			success: function(data) {
 				let totalHeadCount = 0;
-				let now = new Date();
-				let start = now.setHours(0,0,0,0);
-				let createdAt =  Date.parse(new Date(data[0].createdAt));
-				console.log(createdAt);
-				
+				let start = new Date();
+				start.setHours(0,0,0,0);
+				let beginning = Date.parse(start);
+				const timeDiff = 9*60*60*1000;
+				console.log(beginning);
 				for (summary of data) {
-					if (summary.approval == true && start < Date.parse(new Date(summary.createdAt))) {
+					if (summary.approval == true && beginning < Date.parse(summary.createdAt) - timeDiff) {
 						totalHeadCount += summary.headCount
 					}
 				}

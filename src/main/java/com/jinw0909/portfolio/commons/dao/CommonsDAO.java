@@ -43,5 +43,7 @@ public interface CommonsDAO {
 			, @Param("imagePath") String imagePath
 			);
 	
-	public List<Map<String, Object>> selectByBranchId(@Param("branchId") int branchId);
+	public List<Map<String, Object>> selectByParams(
+			@Param("branchId") Integer branchId
+			, @Param("pokemonId") Integer pokemonId);
 }

@@ -69,7 +69,7 @@ public class CommonsBO {
 		return commonsDAO.updatePokemonById(pokemonId, loginId, encryptPassword, name, filePath);
 	}
 	
-	public List<Map<String, Object>> getByBranchId(int branchId) {
-		return commonsDAO.selectByBranchId(branchId);
+	public List<Map<String, Object>> getByParams(Integer branchId, Integer pokemonId) {
+		return commonsDAO.selectByParams(branchId, pokemonId);
 	}
 }

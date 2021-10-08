@@ -21,17 +21,16 @@
 <div class="request-container container d-flex flex-column justify-content-center">
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 	<section class="request-section">
-	<h2>발급된 치료제 <span id="showIssued"></span>개</h2>
+	<h2>오늘 발급받은 치료제 <span id="showIssued"></span>개</h2>
 	<a href="/members/request_create_view" class="btn btn-primary block w-100">요청서 작성</a>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>요청시간</th>
-				<th>소모량</th>
-				<th>담당자</th>
+				<th>작성시간</th>
+				<th>요청량</th>
 				<th>명단</th>
 				<th>트레이너</th>
-				<th>승인</th>
+				<th>승인여부</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,7 +38,6 @@
 			<tr class="request-check" data-request-id=${request.id } data-toggle="modal" data-target="#requestCheckModal">
 				<td>${request.createdAt }</td>
 				<td id="issued_${status.index}">${request.totalRemedy }개</td>
-				<td>${pokemonName} </td>
 				<td>${request.patients } 외 ${request.headCount - 1 }</td>
 				<td>${request.trainerName}</td>
 				<c:choose>
@@ -63,7 +61,7 @@
 		
 	</table>
 	<input type="button" value="더보기" class="btn btn-secondary block w-25">
-	<h1 class="countApproved">승인 요청서 1건</h1>
+	<h1>오늘 승인받은 요청서 <span id="countApproval"></span>건</h1>
 	</section>
 	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
 	<!-- Modal -->
@@ -80,7 +78,7 @@
 	       <table class="table request-table">
 	       	<thead>
 	       		<tr>
-	       			<th>번호</th>
+	       			<th>환자#</th>
 	       			<th>타입</th>
 	       			<th>이름</th>
 	       			<th>레벨</th>
@@ -113,29 +111,31 @@
 	</div>
 	<script>
 		$(document).ready(function() {
-			let approvalCount = 0;
-			let approvalLength = $(".checkApproval").length;
-			console.log(approvalLength);
-			for (let i = 0; i < approvalLength; i++) {
-				if ($("#checkApproval_" + i).text() == "true") {
-					approvalCount++;
-				}
-			}
-			$(".countApproved").text("승인된 요청서 " + approvalCount + "건");
 			
-			let rows = document.querySelectorAll(".request-check");
-			let rowsLength = rows.length;
-			console.log("rows: ", rows);
-			console.log("rows[0]: ", rows[0]);
-			console.log("rowsLength: ", rowsLength);
-			let issued = 0;
-			for (let i = 0; i < rowsLength; i++) {
-				if ($("#checkApproval_" + i).text() == "true") {
-					issued += Number($("#issued_" + i).text().replace("개", ""));
+			$.ajax({
+				type: "get",
+				url: "/commons/summarize",
+				data: {"pokemonId": ${pokemonId}, "branchId": ${branchId}},
+				success: function(data) {
+					let totalIssued = 0;
+					let countApproval = 0;
+					let start = new Date();
+					start.setHours(0,0,0,0);
+					let beginning = Date.parse(start);
+					const timeDiff = 9*60*60*1000;
+					for (summary of data) {
+						if (summary.approval == true && beginning < Date.parse(summary.createdAt) - timeDiff) {
+							totalIssued += summary.totalRemedy;
+							countApproval++;
+						}
+					}
+					$("#showIssued").text(totalIssued.toLocaleString());
+					$("#countApproval").text(countApproval.toLocaleString());
+				},
+				error: function(e) {
+					alert("error");
 				}
-			}
-			console.log(issued);
-			$("#showIssued").text(issued);
+			});
 			
 			$(".request-check").on("click", function() {
 				let requestId = $(this).data("request-id");

@@ -36,7 +36,15 @@ public class CommonsController {
 	@GetMapping("log_out")
 	public String logOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		session.removeAttribute("session");
+		session.removeAttribute("pokemonId");
+		session.removeAttribute("branchId");
+		session.removeAttribute("branchName");
+		session.removeAttribute("pokemonName");
+		session.removeAttribute("branchColor");
+		session.removeAttribute("branchSlogan");
+		session.removeAttribute("loginId");
+		session.removeAttribute("permission");
+		session.removeAttribute("picture");
 		return "redirect:/commons/login_view";
 	}
 }

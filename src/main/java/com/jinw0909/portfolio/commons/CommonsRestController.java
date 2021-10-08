@@ -116,11 +116,16 @@ public class CommonsRestController {
 	}
 	
 	@GetMapping("/summarize")
-	public List<Map<String, Object>> summarizeBranch(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		int branchId = (Integer)session.getAttribute("branchId");
-		List<Map<String, Object>> summary = commonsBO.getByBranchId(branchId);
+	public List<Map<String, Object>> summarize(
+			@RequestParam(value = "branchId", required = false) Integer branchId
+			, @RequestParam(value = "pokemonId", required = false) Integer pokemonId
+			) {
+		List<Map<String, Object>> summary = commonsBO.getByParams(branchId, pokemonId);
 		return summary;
 	}
 	
+	@GetMapping("/fetch_branch")
+	public List<Map<String, Object>> fetchBranch() {
+		return commonsBO.getBranchInfo();
+	}
 }
