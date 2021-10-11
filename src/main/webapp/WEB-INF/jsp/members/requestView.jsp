@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 	<section class="request-section">
 	<h2>오늘 발급받은 치료제 <span id="showIssued"></span>개</h2>
 	<a href="/members/request_create_view" class="btn btn-primary block w-100">요청서 작성</a>
-	<table class="table">
+	<table class="table text-center">
 		<thead>
 			<tr>
 				<th>작성시간</th>
@@ -36,21 +37,29 @@
 		<tbody>
 		<c:forEach var="request" items="${requestList}" varStatus="status">
 			<tr class="request-check" data-request-id=${request.id } data-toggle="modal" data-target="#requestCheckModal">
-				<td>${request.createdAt }</td>
+				<fmt:formatDate var="resultRegDt" value="${request.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<td>${resultRegDt}</td>
 				<td id="issued_${status.index}">${request.totalRemedy }개</td>
-				<td>${request.patients } 외 ${request.headCount - 1 }</td>
+				<c:choose>
+					<c:when test="${request.headCount <= 1 }">
+						<td>${request.patients }</td>
+					</c:when>
+					<c:otherwise>
+						<td>${request.patients } 외 ${request.headCount - 1 }</td>
+					</c:otherwise>
+				</c:choose>
 				<td>${request.trainerName}</td>
 				<c:choose>
 				<c:when test="${request.approval eq true}">
-					<td class="checkApproval" id="checkApproval_${status.index }">${request.approval}</td>
+					<td class="checkApproval" id="checkApproval_${status.index }">승인됨</td>
 				</c:when>
 				<c:otherwise>
 					<c:choose>
 						<c:when test="${empty request.denial }">
-							<td class="checkApproval" id="checkApproval_${status.index }">${request.approval}</td>
+							<td class="checkApproval" id="checkApproval_${status.index }">대기중</td>
 						</c:when>
 						<c:when test="${request.denial != null}">
-							<td class="checkApproval" id="checkApproval_${status.index }">기각</td>
+							<td class="checkApproval" id="checkApproval_${status.index }">기각됨</td>
 						</c:when>
 					</c:choose>
 				</c:otherwise>

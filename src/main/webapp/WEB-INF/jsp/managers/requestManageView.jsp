@@ -53,7 +53,7 @@
 		<input type="button" class="btn btn-secondary" value="더보기">
 	</div>
 	<div>
-		<input type="button" id="showTotalSummary" class="btn btn-success block w-50" value="지점별 요청량 현황" data-toggle="modal" data-target="#totalSummary">
+		<input type="button" id="showTotalSummary" class="btn btn-success block w-50" value="지점별 발급량 현황" data-toggle="modal" data-target="#totalSummary">
 	</div>
 </section>
 <c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>

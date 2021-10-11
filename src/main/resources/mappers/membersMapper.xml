@@ -52,6 +52,7 @@
  		FROM 
  			`request`
  		WHERE
- 			`pokemonId` = #{pokemonId} 
+ 			`pokemonId` = #{pokemonId}
+ 		ORDER BY `id` DESC
  	</select>
  </mapper>

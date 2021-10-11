@@ -164,66 +164,6 @@
 		
 		
 		$("#requestBtn").on("click", function() {
-			let types = "";
-			for (let i = 0; i < 6; i++) {
-				if ($("#typeInput_" + i).val() == "타입 선택" || !$("#typeInput_" + i).prop("disabled")) {
-					types += ",";
-					continue;
-				}
-				types += $("#typeInput_" + i).val() + ","; 
-			}
-			types = types.replace(/,\s*$/, "");
-			console.log(types);
-			
-			let patients = "";
-			for (let i = 0; i < 6; i++) {
-				if ($("#nameInput_" + i).val() == null  || !$("#nameInput_" + i).prop("readonly")) {
-					patients += ",";
-					continue;
-				}
-				patients += $("#nameInput_" + i).val() + ","; 
-			}
-			patients = patients.replace(/,\s*$/, "");
-			console.log(patients);
-			
-			let levels = "";
-			for (let i = 0; i < 6; i++) {
-				if ($("#levelInput_" + i).val() == "" || !$("#levelInput_" + i).prop("readonly")) {
-					levels += ",";
-					continue;
-				}
-				levels += $("#levelInput_" + i).val() + ","; 
-			}
-			levels = levels.replace(/,\s*$/, "");
-			console.log(levels);
-			
-			let remedy = "";
-			let totalRemedy = 0;
-			for (let i = 0; i < 6; i++) {
-				if ($("#remdeyInput_" + i).val() == "" || !$("#remedyInput_" + i).prop("readonly")) {
-					remedy += ",";
-					continue;
-				}
-				remedy += $("#remedyInput_" + i).val() + ",";
-				totalRemedy += Number($("#remedyInput_" + i).val());
-			}
-			remedy = remedy.replace(/,\s*$/, "");
-			console.log(remedy);
-			console.log("totalRemedy: ", totalRemedy);
-			
-			let etc = "";
-			for (let i = 0; i < 6; i++) {
-				if ($("#etcInput_" + i).val() == "" || !$("#etcInput_" + i).prop("readonly")) {
-					etc += ",";
-					continue;
-				}
-				etc += $("#etcInput_" + i).val() + ","; 
-			}
-			etc = etc.replace(/,\s*$/, "");
-			console.log(etc);
-			
-			let trainerName = $("#trainerInput").val().trim();
-			
 			let headCount = 0;
 			for (let i = 0; i < 6; i++) {
 				if ($("#checkBox_" + i).is(":checked")) {
@@ -231,20 +171,81 @@
 				}
 			}
 			console.log("headCount: ", headCount);
+			let types = [];
+			for (let i = 0; i < 6; i++) {
+				if ($("#typeInput_" + i).val() == "타입 선택" || !$("#typeInput_" + i).prop("disabled")) {
+					continue;
+				} else {
+					types[i] = $("#typeInput_" + i).val().trim(); 
+				}
+			}
+			types = types.filter(e => e.length > 0).toString();
+			console.log(types);
+			
+			let patients = [];
+			for (let i = 0; i < 6; i++) {
+				if ($("#nameInput_" + i).val() == null  || !$("#nameInput_" + i).prop("readonly")) {
+					continue;
+				} else {
+					patients[i] = $("#nameInput_" + i).val().trim(); 
+				}
+			}
+			patients = patients.filter(e => e.length > 0).toString();
+			console.log(patients);
+			
+			let levels = [];
+			for (let i = 0; i < 6; i++) {
+				if ($("#levelInput_" + i).val() == "" || !$("#levelInput_" + i).prop("readonly")) {
+					continue;
+				} else {
+					levels[i] = $("#levelInput_" + i).val().trim(); 
+				}
+			}
+			levels = levels.filter(e => e.length > 0).toString();
+			console.log(levels);
+			
+			let remedy = [];
+			let totalRemedy = 0;
+			for (let i = 0; i < 6; i++) {
+				if ($("#remdeyInput_" + i).val() == "" || !$("#remedyInput_" + i).prop("readonly")) {
+					continue;
+				}
+				remedy[i] = $("#remedyInput_" + i).val().trim();
+				totalRemedy += Number(remedy[i]);
+			}
+			remedy = remedy.filter(e => e.length > 0).toString();
+			console.log(remedy);
+			console.log("totalRemedy: ", totalRemedy);
+			
+			let etc = [];
+			for (let i = 0; i < 6; i++) {
+				if ($("#etcInput_" + i).val() == "" || !$("#etcInput_" + i).prop("readonly")) {
+					continue;
+				} else {
+					etc[i] = $("#etcInput_" + i).val().trim(); 
+					
+				}
+			}
+			etc = etc.filter(e => e.length > 0).toString();
+			console.log(etc);
+			
+			let trainerName = $("#trainerInput").val().trim();
+			
+			
 			console.log("trainerName: ", trainerName);
 			
 			$(".request-table > tbody").empty();
 			$(".trainer-name").empty();
 			$(".total-remedy").empty();
-			for (let i = 0; i < 6; i++) {
+			for (let i = 0; i < headCount; i++) {
 				$(".request-table > tbody").append(
 					"<tr>" 
 						+ "<td>" + (i + 1) + "</td>"
-						+ "<td>" + types.split(",")[i] + "</td>"
-						+ "<td>" + patients.split(",")[i] + "</td>"
-						+ "<td>" + levels.split(",")[i] + "</td>"
-						+ "<td>" + remedy.split(",")[i] + "</td>"
-						+ "<td>" + etc.split(",")[i] + "</td>" +
+						+ "<td>" + (types.split(",")[i]? types.split(",")[i] : "-") + "</td>"
+						+ "<td>" + (patients.split(",")[i]? patients.split(",")[i] : "-") + "</td>"
+						+ "<td>" + (levels.split(",")[i]? levels.split(",")[i]: "-") + "</td>"
+						+ "<td>" + (remedy.split(",")[i]? remedy.split(",")[i]: "-") + "</td>"
+						+ "<td>" + (etc.split(",")[i]? etc.split(",")[i]: "-") + "</td>" +
 					"</tr>"
 				);
 			}
@@ -283,16 +284,14 @@
 			$.ajax({
 				method: "post",
 				url: "/members/create_request",
-				data: 
-					JSON.stringify(data),
-					/* "types": types,
-					"remedy": remedy,
-					"patients": patients,
-					"levels": levels,
-					"etc": etc,
-					"headCount": headCount,
-					"trainerName": trainerName */
-				/* dataType: "text", */
+				data: JSON.stringify(data),
+					/* {"types": data.types,
+					"remedy": data.remedy,
+					"patients": data.patients,
+					"levels": data.levels,
+					"etc": data.etc,
+					"headCount": data.headCount,
+					"trainerName": data.trainerName}, */
 				contentType: "application/json; charset=UTF-8",
 				success: function(data) {
 					if (data.result == "success") {

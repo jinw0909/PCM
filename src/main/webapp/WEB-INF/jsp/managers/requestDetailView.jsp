@@ -82,14 +82,14 @@
 			
 			for (let i = 0; i < headCount; i++) {
 				$("#showRequestDetail").append(
-					"<tr>" +
-					"<th>환자</th>" +
-					"<td>" + patients.split(",")[i] + "</td>" +
-					"<td>" + types.split(",")[i] + "</td>" +
-					"<td>" + levels.split(",")[i] + "</td>" +
-					"<td>" + remedy.split(",")[i] + "개</td>" +
-					"<td>" + etc.split(",")[i] + "</td>" +
-					+ "</tr>"
+						"<tr>" 
+						+ "<th>환자" + (i + 1) + "</th>"
+						+ "<td>" + (patients.split(",")[i]? patients.split(",")[i] : "-") + "</td>"
+						+ "<td>" + (types.split(",")[i]? types.split(",")[i] : "-") + "</td>"
+						+ "<td>" + (levels.split(",")[i]? levels.split(",")[i]: "-") + "</td>"
+						+ "<td>" + (remedy.split(",")[i]? remedy.split(",")[i]: "-") + "</td>"
+						+ "<td>" + (etc.split(",")[i]? etc.split(",")[i]: "-") + "</td>" +
+					"</tr>"
 				);
 			}
 		}
