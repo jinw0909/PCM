@@ -91,6 +91,7 @@
 				success: function(data) {
 					if (data.result == "success") {
 						alert("수정 성공");
+						location.href = "/commons/login_view";
 					} else {
 						alert("수정 실패");
 					}

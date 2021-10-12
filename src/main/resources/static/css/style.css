@@ -132,6 +132,33 @@
 .request-check:hover {
 	background: #ddd;
 }
+.main-menu-remedy > a {
+	background: url("/static/images/remedy.png");
+	background-size: cover;
+}
+.main-menu-remedy > a:hover {
+	background: url("/static/images/remedy-color.png");
+	background-size: cover;
+	transition: 0.5s;
+}
+.main-menu-notice > a {
+	background: url("/static/images/notice.png");
+	background-size: cover;
+}
+.main-menu-notice > a:hover {
+	background: url("/static/images/notice-color.png");
+	background-size: cover;
+	transition: 0.5s;
+}
+.main-menu-manager > a {
+	background: url("/static/images/manager.png");
+	background-size: cover;
+}
+.main-menu-manager > a:hover {
+	background: url("/static/images/manager-color.png");
+	background-size: cover;
+	transition: 0.5s;
+}
 
 /* 노말 : #ADA494 173, 164, 148
 불꽃 : #C72001 199, 32, 1

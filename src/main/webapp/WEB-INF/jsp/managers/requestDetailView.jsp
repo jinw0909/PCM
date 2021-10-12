@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,8 @@
 <section class="manage-section">
 	<h2>요청 상세</h2>
 	<h3>요청 번호 #${request.id }</h3>
-	<h4>요청자 ${request.pokemonName } / 요청일시 ${request.createdAt } / 요청량 ${request.totalRemedy }개</h4>
+	<fmt:formatDate var="resultRegDt" value="${request.createdAt}" pattern="MM월 dd일 HH시 mm분"/>
+	<h4>요청자 ${request.pokemonName } / 요청일시${resultRegDt} / 요청량 ${request.totalRemedy }개</h4>
 	<table class="table">
 		<thead>
 			<tr>
@@ -39,8 +41,11 @@
 		<tbody id="showRequestDetail">
 		</tbody>
 	</table>
+	<div class="d-flex justify-content-end mb-5">
+		<div><b>트레이너</b> ${request.trainerName }</div>
+	</div>
 	<div class="d-flex justify-content-between">
-		<input type="button" class="btn btn-secondary block w-25" value="목록으로">
+		<input type="button" id="backToList" class="btn btn-secondary block w-25" value="목록으로">
 		<div>
 			<input type="button" class="btn btn-danger btn-small" value="기각" id="denyBtn" data-toggle="modal" data-target="#denyModal"}>
 			<input type="button" class="btn btn-primary btn-small" value="승인" id="approveBtn" data-request-id=${request.id }>
@@ -135,6 +140,10 @@
 				}
 			});
 		});
+		
+		$("#backToList").on("click", function() {
+			location.href = "/managers/request_manage_view";
+		});		
 	});
 </script>
 </div>

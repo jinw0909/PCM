@@ -18,6 +18,8 @@
  			`branchId` = #{branchId} AND
  			`approval` = 'false' AND
  			`denial` IS NULL
+ 		ORDER BY
+ 			`id` DESC
  	</select>
  	
  	<select id="selectRequestById" resultType="com.jinw0909.portfolio.members.model.Request">
@@ -31,6 +33,7 @@
  			, `remedy`
  			, `totalRemedy`
  			, `etc`
+ 			, `trainerName`
  			, `createdAt`
  			, `updatedAt`
  		FROM

@@ -20,6 +20,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		String uri = request.getRequestURI();
 		String permission = (String)session.getAttribute("permission");
 		
+		
 		if (session.getAttribute("pokemonId") == null) {
 			if (uri.startsWith("/commons/main_view") || uri.startsWith("/members") || uri.startsWith("/manangers") || uri.startsWith("/notice")) {
 				response.sendRedirect("/commons/login_view");
