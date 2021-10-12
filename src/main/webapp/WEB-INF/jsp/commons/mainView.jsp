@@ -17,28 +17,39 @@
 
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body style="background: ${branchColor};">
 <div class="main-container container d-flex flex-column justify-content-center">
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 	<h5 class="mt-5">${branchSlogan } ${branchName }입니다.</h5>
 	<h2 class="mt-4">오늘 총 <span id="showHeadCount"></span>마리의 포켓몬스터를 치료하였습니다.</h2>
 	<section class="main-section d-flex justify-content-around">
-		<div class="d-flex justify-content-center align-items-center">
-			<a href="/members/request_view" class="circle">치료</a>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<div class="d-flex justify-content-center align-items-center main-menu-remedy">
+				<a href="/members/request_view" class="circle"></a>
+			</div>
+			<div>치료</div>
 		</div>
-		<div class="d-flex justify-content-center align-items-center">
-			<a href="/notice/timeline_view" class="circle">공지</a>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<div class="d-flex justify-content-center align-items-center main-menu-notice">
+				<a href="/notice/timeline_view" class="circle"></a>
+			</div>
+			<div>커뮤니티</div>
 		</div>
-		<div class="d-flex justify-content-center align-items-center">
-			<a href="/managers/manage_view" class="circle">지점</a>
+			<c:if test="${permission eq '관리자' }">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<div class="d-flex justify-content-center align-items-center main-menu-manager">
+				<a href="/managers/manage_view" class="circle"></a>
+			</div>
+			<div>관리자</div>
 		</div>
+		</c:if>
 		
 	</section>
 	<div class="d-flex justify-content-between">
 		<div><i class="bi bi-chat-left-dots-fill"></i>사원찾기</div>
-		<select class="form-control w-25">
+		<!-- <select class="form-control w-25">
 			<option>한국어</option>
-		</select>
+		</select> -->
 	</div>
 	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
 </div>

@@ -37,7 +37,7 @@
 		<tbody>
 		<c:forEach var="request" items="${requestList}" varStatus="status">
 			<tr class="request-check" data-request-id=${request.id } data-toggle="modal" data-target="#requestCheckModal">
-				<fmt:formatDate var="resultRegDt" value="${request.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<fmt:formatDate var="resultRegDt" value="${request.createdAt}" pattern="yyyy-MM-dd HH시 mm분"/>
 				<td>${resultRegDt}</td>
 				<td id="issued_${status.index}">${request.totalRemedy }개</td>
 				<c:choose>
@@ -84,7 +84,7 @@
 	        </button>
 	      </div>
 	      <div class="modal-body request-modal-body">
-	       <table class="table request-table">
+	       <table class="table request-table text-center">
 	       	<thead>
 	       		<tr>
 	       			<th>환자#</th>
@@ -158,11 +158,11 @@
 							$("#checkTableBody").append(
 								"<tr>" +
 									"<td>" + (i + 1) + "</td>" +
-									"<td>" + data.types.split(",")[i] + "</td>" +
-									"<td>" + data.patients.split(",")[i] + "</td>" +
-									"<td>" + data.levels.split(",")[i] + "레벨</td>" +
-									"<td>" + data.remedy.split(",")[i] + "개</td>" +
-									"<td>" + data.etc.split(",")[i] + "</td>" +
+									"<td>" + (data.types.split(",")[i]?data.types.split(",")[i]:"-")   + "</td>" +
+									"<td>" + (data.patients.split(",")[i]?data.patients.split(",")[i]:"-") + "</td>" +
+									"<td>" + (data.levels.split(",")[i]?data.levels.split(",")[i] + "레벨":"-") + "</td>" +
+									"<td>" + (data.remedy.split(",")[i]?data.remedy.split(",")[i] + "개":"-") + "</td>" +
+									"<td>" + (data.etc.split(",")[i]?data.etc.split(",")[i]:"-") + "</td>" +
 								+ "</tr>"
 							);
 							

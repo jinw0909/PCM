@@ -296,6 +296,7 @@
 				success: function(data) {
 					if (data.result == "success") {
 						alert("요청 성공");
+						location.href = "/members/request_view";
 					} else {
 						alert("요청 실패");
 					}
