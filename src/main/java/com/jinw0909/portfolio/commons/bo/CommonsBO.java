@@ -41,6 +41,9 @@ public class CommonsBO {
 		String encryptPassword = EncryptUtils.md5(password);
 		return commonsDAO.selectPokemonByLidPwBr(loginId, encryptPassword, branchId);
 	}
+	public Pokemon getPokemonById(int pokemonId) {
+		return commonsDAO.selectPokemonById(pokemonId);
+	}
 	
 	public PokemonWithBranch getPokemonWithBranch(int pokemonId, Integer branchId) {
 		Pokemon pokemon = commonsDAO.selectPokemonById(pokemonId);
@@ -52,7 +55,7 @@ public class CommonsBO {
 		return pokemonWithBranch;
 	}
 	
-	public int modifyPokemonById(int pokemonId, String loginId, String password, String name, MultipartFile file) {
+	public int modifyPokemonById(int pokemonId, String loginId, String password, String name, MultipartFile file, String picture) {
 		
 		String encryptPassword = EncryptUtils.md5(password);
 		
@@ -64,6 +67,8 @@ public class CommonsBO {
 			if (filePath == null) {
 				return -1;
 			}
+		} else {
+			filePath = picture;
 		}
 		
 		return commonsDAO.updatePokemonById(pokemonId, loginId, encryptPassword, name, filePath);

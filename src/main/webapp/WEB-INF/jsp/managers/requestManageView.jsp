@@ -10,27 +10,28 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body style="background: ${branchColor}77">
 <div class="manage-container container d-flex flex-column justify-content-center">
 <c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 <section class="manage-section d-flex flex-column justify-content-around">
+	<div class="d-flex">
 	<c:choose>
 	<c:when test="${requestList.size() eq 0 }">
-		<h2>처리하지 않은 요청서가 없습니다.</h2>
+		<h3 class="col-6 text-center">처리하지 않은 요청서가 없습니다.</h3>
 	</c:when>
 	<c:otherwise>
-		<h2>처리하지 않은 요청서가 ${requestList.size() }건 있습니다</h2>
+		<h3 class="col-6 text-center">처리하지 않은 요청서 <span style="font-size: 2rem">${requestList.size() }</span>건</h3>
 	</c:otherwise>
 	</c:choose>
-	<h3 class="text-primary">오늘 승인한 요청량 총 <span id="totalIssued"></span>개</h3>
+	<h3 class="text-primary col-6 text-center">승인한 요청량 총 <span style="font-size: 2rem" id="totalIssued"></span>개</h3>
+	</div>
 	<table class="table text-center">
 		<thead>
 			<tr>

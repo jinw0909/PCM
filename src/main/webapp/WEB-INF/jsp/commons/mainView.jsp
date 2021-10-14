@@ -9,19 +9,18 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body style="background: ${branchColor};">
+<body style="background: ${branchColor}77;">
+<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 <div class="main-container container d-flex flex-column justify-content-center">
-	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
-	<h5 class="mt-5">${branchSlogan } ${branchName }입니다.</h5>
-	<h2 class="mt-4">오늘 총 <span id="showHeadCount"></span>마리의 포켓몬스터를 치료하였습니다.</h2>
+	<h5 class="mt-3">${branchSlogan } ${branchName }입니다.</h5>
+	<h2 class="mt-2">오늘 총 <span id="showHeadCount"></span>마리의 포켓몬스터를 치료하였습니다.</h2>
 	<section class="main-section d-flex justify-content-around">
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<div class="d-flex justify-content-center align-items-center main-menu-remedy">
@@ -33,7 +32,7 @@
 			<div class="d-flex justify-content-center align-items-center main-menu-notice">
 				<a href="/notice/timeline_view" class="circle"></a>
 			</div>
-			<div>커뮤니티</div>
+			<div>공지사항</div>
 		</div>
 			<c:if test="${permission eq '관리자' }">
 		<div class="d-flex flex-column justify-content-center align-items-center">

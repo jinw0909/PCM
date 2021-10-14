@@ -10,20 +10,22 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body style="background: ${branchColor }77">
 <div class="request-container container d-flex flex-column justify-content-center">
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 	<section class="request-section">
-	<h2>오늘 발급받은 치료제 <span id="showIssued"></span>개</h2>
-	<a href="/members/request_create_view" class="btn btn-primary block w-100">요청서 작성</a>
+	<div class="d-flex justify-content-around">
+		<h3>오늘 발급받은 치료제 <span style="font-size: 2.5rem" id="showIssued"></span>개</h3>
+		<h3>오늘 승인받은 요청서 <span style="font-size: 2.5rem" id="countApproval"></span>건</h3>
+	</div>
+	<a href="/members/request_create_view" class="btn btn-primary block w-100 my-3">요청서 작성</a>
 	<table class="table text-center">
 		<thead>
 			<tr>
@@ -69,8 +71,10 @@
 		</tbody>
 		
 	</table>
-	<input type="button" value="더보기" class="btn btn-secondary block w-25">
-	<h1>오늘 승인받은 요청서 <span id="countApproval"></span>건</h1>
+	<div class="text-center">
+		<a href="#">더보기+</a>	
+	</div>
+	
 	</section>
 	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
 	<!-- Modal -->
