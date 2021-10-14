@@ -13,9 +13,9 @@
 
 설계
 ---
-* ui설계
+* ui설계  
 https://ovenapp.io/project/HYGrGBlpfe8OKp3NS5NV5gk0sjEfOATV#ACqj6
-* url설계 / db설계
+* url설계 / db설계  
 https://docs.google.com/spreadsheets/d/1D9kaIOSG73_NmJwOMJkvhgz6EP8AxNBWgygUq51JXMA/edit#gid=0
 
 주요기능
