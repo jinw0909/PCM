@@ -97,22 +97,39 @@ public class CommonsRestController {
 	@PostMapping("/modify_pokemon")
 	public Map<String, String> modifyPokemon(HttpServletRequest request
 			,@RequestParam("loginId") String loginId
-			, @RequestParam("password") String password
+			, @RequestParam(value = "password", required = false) String password
 			, @RequestParam("name") String name
 			, @RequestParam(value = "picture", required = false) MultipartFile picture) {
 		HttpSession session = request.getSession();
 		int id = (Integer)session.getAttribute("pokemonId");
+		String originalPicture = (String)session.getAttribute("picture");
 		
 		Map<String, String> result = new HashMap<>();
-		int count = commonsBO.modifyPokemonById(id, loginId, password, name, picture);
+		int count = commonsBO.modifyPokemonById(id, loginId, password, name, picture, originalPicture);
 		if (count == 1) {
 			result.put("result", "success");
-			
-			
 		} else {
 			result.put("result", "failure");
 		}
 		return result;
+	}
+	
+	@GetMapping("/modify_session")
+	public boolean modifySession(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int pokemonId = (Integer)session.getAttribute("pokemonId");
+		Pokemon pokemon = commonsBO.getPokemonById(pokemonId);
+		String loginId = pokemon.getLoginId();
+		String pokemonName = pokemon.getPokemonName();
+		String picture = pokemon.getProfileImage();
+		
+		session.setAttribute("loginId", loginId);
+		session.setAttribute("pokemonName", pokemonName);
+		session.setAttribute("picture", picture);
+		
+		
+		return true;
 	}
 	
 	@GetMapping("/summarize")

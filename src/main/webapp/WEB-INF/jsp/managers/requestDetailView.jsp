@@ -19,7 +19,7 @@
 
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body style="background: ${branchColor}77">
 <div class="manage-container container d-flex flex-column justify-content-center">
 <c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 <section class="manage-section">
@@ -77,6 +77,7 @@
 
 <script>
 	$(document).ready(function() {
+		
 		const showRequestList = function() {
 			let types = "${request.types}";
 			let levels = "${request.levels}";

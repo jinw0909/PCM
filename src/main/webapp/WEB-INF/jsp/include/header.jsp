@@ -3,17 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <header>
-<div class="d-flex justify-content-between" style="background: ${branchColor}">
-	<div><a href="/commons/main_view">${branchName}</a> ${permission } ${pokemonName}님 환영합니다.</div>
-	<div class="clock"></div>
-	<div class="dropdown">
-	  <input style="background: url(${picture}); background-size: cover" class="picture dropdown-toggle" type="button" id="dropdownMenuButton1"  data-bs-toggle="dropdown" aria-expanded="false">
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-	  	<li><a class="dropdown-item" href="/commons/main_view">메인페이지</a></li>
-	    <li><a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" href="#">정보수정</a></li>
-	    <li><a class="dropdown-item" href="/commons/log_out">로그아웃</a></li>
-	  </ul>
+<div class="d-flex justify-content-between navbar navbar-expand-lg" style="background: ${branchColor}">
+	<div class="d-flex justify-content-between align-items-center">
+		<div class="dropdown">
+		  <button style="background: url(${picture}); background-size: cover" class="picture dropdown-toggle" type="button" id="dropdownMenuButton1"  data-bs-toggle="dropdown" aria-expanded="false"></button>
+		  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
+		  	<li><a class="dropdown-item" href="/commons/main_view">메인페이지</a></li>
+		    <li><a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" href="#">정보수정</a></li>
+		    <li><a class="dropdown-item" href="/commons/log_out">로그아웃</a></li>
+		  </ul>
+		</div>
+		<div class="session-info"><a href="/commons/main_view">${branchName}</a> ${permission } ${pokemonName}님 환영합니다.</div>
 	</div>
+	<div class="clock"></div>
 	
 
 <!-- Modal -->
@@ -37,7 +39,7 @@
 		      <div class="input-group-prepend col-3">
 		      	<span class="input-group-text text-center">신규 비밀번호</span>
 		      </div>
-			  <input class="form-control" type="password">	
+			  <input class="form-control" type="password" id="password">	
 		  </div>
 	      <div class="input-group">
 		      <div class="input-group-prepend col-3">
@@ -52,7 +54,7 @@
 			  <input class="form-control" type="text" value="${pokemonName}" id="modifyName">	
 		  </div>
 		  <input type="button" class="form-control btn btn-secondary" value="사진 변경" id="fileUploadBtn">
-		  <input type="file" id="modifyPicture" accept="image/*" multiple>
+		  <input type="file" class="d-none" id="modifyPicture" accept="image/*" multiple>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -67,6 +69,8 @@
 <script>
 	$(document).ready(function() {
 		
+		
+		
 		$("#confirmBtn").on("click", function(e) {
 			
 			e.preventDefault();
@@ -76,35 +80,84 @@
 			let password = $("#modifyPassword").val().trim();
 			let name = $("#modifyName").val().trim();
 			let picture = $("#modifyPicture")[0].files[0];
-			formData.append("loginId", loginId);
-			formData.append("password", password);
-			formData.append("name", name);
-			formData.append("picture", picture);
+		
+			if ($("#modifyId").val().trim() == "" || $("#modifyId").val().trim() == null) {
+				alert("신규 로그인 아이디를 입력하세요");
+				return false;
+			}
+			if ($("#modifyName").val().trim() == "" || $("#modifyName").val().trim() == null) {
+				alert("신규 이름을 입력하세요");
+				return false;
+			}
+			if ($("#modifyPassword").val().trim() == "" || $("#modifyPassword").val().trim() == null) {
+				alert("비밀번호가 없습니다");
+				return false;
+			}
+			if ($("#modifyPassword").val().trim() != $("#password").val().trim()) {
+				alert("비밀번호를 확인하세요");
+				return false;
+			}
 			
-			$.ajax({
-				method: "post",
-				url: "/commons/modify_pokemon",
-				enctype: "multipart/form-data",
-				processData: false,
-				contentType: false,
-				data: formData,
-				success: function(data) {
-					if (data.result == "success") {
-						alert("수정 성공");
-						location.href = "/commons/login_view";
-					} else {
-						alert("수정 실패");
+			modifyPokemonAsync = function() {
+				return new Promise((resolve, reject) => {
+					formData.append("loginId", loginId);
+					formData.append("password", password);
+					formData.append("name", name);
+					formData.append("picture", picture);
+					
+					$.ajax({
+						method: "post",
+						url: "/commons/modify_pokemon",
+						enctype: "multipart/form-data",
+						processData: false,
+						contentType: false,
+						data: formData,
+						success: function(data) {
+							if (data.result == "success") {
+								alert("수정 성공");
+								resolve();
+							} else {
+								alert("수정 실패");
+								reject();
+							}
+						},
+						error: function(error) {
+							alert("error");
+							reject();
+						}
+					});
+				});
+			};
+			
+			modifySession = function() {
+				$.ajax({
+					method: "get",
+					url: "/commons/modify_session",
+					success: function(data) {
+						if (data == true) {
+							alert("세션반영성공");
+							location.reload();
+						} else {
+							alert("세션반영실패");
+						}
+					},
+					error: function(e) {
+						alert("error");
 					}
-				},
-				error: function(error) {
-					alert("error");
-				}
-			});
+				});
+			};
 			
+			modifyPokemonAsync().then(modifySession);
 		});
 		
+		$("#fileUploadBtn").on("click", function() {
+			$("#modifyPicture").click();
+		});
+		
+		
+		
 		let clockTarget = document.querySelector(".clock");
-		let clock_2 = document.querySelector(".clock_2");
+		
 		function clock() {
 		    let date = new Date();
 		    let month = date.getMonth();
@@ -118,8 +171,7 @@
 		    let seconds = date.getSeconds();
 		    if (seconds < 10) { seconds = "0" + seconds} else { seconds = seconds }
 		    
-		    clockTarget.textContent = (month+1) + "월 " + clockDate + "일 " + week[day] + "요일 " + hours + ":" + minutes;
-		    clock_2.textContent = (month+1) + "월 " + clockDate + "일 " + week[day] + "요일";
+			clockTarget.textContent = (month+1) + "월 " + clockDate + "일 " + week[day] + "요일 " + hours + ":" + minutes;
 
 		}
 		
@@ -129,6 +181,8 @@
 		}
 
 		init();
+		
+		
 		
 	});
 </script>

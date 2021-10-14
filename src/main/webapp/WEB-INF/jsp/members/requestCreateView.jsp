@@ -9,24 +9,23 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body style="background: ${branchColor}77">
 <div class="request-container container d-flex flex-column justify-content-center">
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 	<section class="request-section">
-		<table class="table">
+		<table class="table text-center align-middle">
 			<thead>
-				<tr>
+				<tr class="mt-3">
 					<th></th>
 					<% for (int i = 0; i < 6; i++) { %>
-					<th>환자<%=i + 1 %><input type="checkbox" class="checkbox" id="checkBox_<%=i %>" value="<%=i %>"></th>
+					<th>환자<%=i + 1 %><input type="checkbox" class="checkbox m-2" id="checkBox_<%=i %>" value="<%=i %>"></th>
 					<% } %>
 				</tr>
 			</thead>
@@ -77,7 +76,7 @@
 				<tr>
 					<th>비고</th>
 					<% for (int i = 0; i < 6; i++)  { %>
-						<td><textarea type="text" class="form-control" id="etcInput_<%=i %>"></textarea>
+						<td><textarea type="text" class="form-control resize-none" style="resize:none" id="etcInput_<%=i %>"></textarea>
 					<% } %>
 				</tr>
 				<tr>
@@ -86,7 +85,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<a class="form-control btn block btn-success w-100" id="requestBtn" href="#" data-target="#requestModal" data-toggle="modal">치료제 요청하기</a>
+		<a class="form-control btn block btn-success w-100 my-4" id="requestBtn" href="#" data-target="#requestModal" data-toggle="modal">치료제 요청하기</a>
 		
 	</section>
 	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
@@ -163,7 +162,9 @@
 		};
 		
 		
-		$("#requestBtn").on("click", function() {
+		$("#requestBtn").on("click", function(e) {
+			e.preventDefault();
+			
 			let headCount = 0;
 			for (let i = 0; i < 6; i++) {
 				if ($("#checkBox_" + i).is(":checked")) {
@@ -198,7 +199,15 @@
 				if ($("#levelInput_" + i).val() == "" || !$("#levelInput_" + i).prop("readonly")) {
 					continue;
 				} else {
-					levels[i] = $("#levelInput_" + i).val().trim(); 
+					levels[i] = $("#levelInput_" + i).val().trim();
+					if (isNaN(parseInt(levels[i]))) {
+						alert('레벨란에 숫자를 입력하세요');
+						return false;
+					} 
+					if (parseInt(levels[i]) < 0 || parseInt(levels[i]) > 99 || !Number.isInteger(Number(levels[i]))) {
+						alert('레벨은 1부터 99까지의 정수입니다');
+						return false;
+					} 
 				}
 			}
 			levels = levels.filter(e => e.length > 0).toString();
@@ -212,6 +221,14 @@
 				}
 				remedy[i] = $("#remedyInput_" + i).val().trim();
 				totalRemedy += Number(remedy[i]);
+				if (isNaN(parseInt(remedy[i]))) {
+					alert('요청량에 숫자를 입력하세요');
+					return false;
+				}
+				if (parseInt(remedy[i]) < 0 || !Number.isInteger(Number(remedy[i]))) {
+					alert('요청량은 0보다 큰 정수입니다');
+					return false;
+				} 
 			}
 			remedy = remedy.filter(e => e.length > 0).toString();
 			console.log(remedy);
@@ -251,7 +268,7 @@
 			}
 			$(".trainer-name").append(
 					"<b>트레이너명</b>" +
-					"<span>" + trainerName + "</span>"
+					"<span style='margin-left: 1rem'>" + trainerName + "</span>"
 			)
 			/* $(".head-count").append(
 				"<span>총 " + headCount + "마리</span>"		
