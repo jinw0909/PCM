@@ -8,16 +8,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/PCM?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-<<<<<<< HEAD
     password: root
-=======
-    password: worldcup1989
   servlet:
     multipart:
       max-file-size: 20MB
-        
->>>>>>> develop-original
-
 logging:
   level:
     root: info
