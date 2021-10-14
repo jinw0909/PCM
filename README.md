@@ -20,11 +20,16 @@ https://docs.google.com/spreadsheets/d/1D9kaIOSG73_NmJwOMJkvhgz6EP8AxNBWgygUq51J
 
 주요기능
 ------
-* 회원가입 및 정보수정
-* 공지사항 및 댓글 작성
-* 치료제 요청
-* 치료제 발급
-* 지점별 발급 현황 확인
+* 로그인 및 정보수정(공통권한)  
+https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/commons
+* 공지사항 및 댓글 작성(공통권한)  
+https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/notice
+* 치료제 요청(직원권한)  
+https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/members
+* 치료제 발급(관리자권한)  
+https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/managers
+* 지점별 발급 현황 확인(관리자권한)
+https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/commons/branch
 
 DEMO
 -----
