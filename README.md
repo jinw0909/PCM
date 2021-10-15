@@ -31,14 +31,18 @@ https://docs.google.com/spreadsheets/d/1D9kaIOSG73_NmJwOMJkvhgz6EP8AxNBWgygUq51J
   * package [com.jinw0909.portfolio.commons.*](https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/commons)
   * view [webapp/WEB-INF/jsp/commons/*](https://github.com/jinw0909/PCM/tree/develop/src/main/webapp/WEB-INF/jsp/commons)
 
-* 공지사항 및 댓글 작성(공통권한)  
-https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/notice
-* 치료제 요청(직원권한)  
-https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/members
-* 치료제 발급(관리자권한)  
-https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/managers
-* 지점별 발급 현황 확인(관리자권한)
-https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/commons/branch
+* 치료제 요청(직원권한)
+  * package [com.jinw0909.portfolio.members.*](https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/members)
+  * view [webapp/WEB-INF/jsp/members/*](https://github.com/jinw0909/PCM/tree/develop/src/main/webapp/WEB-INF/jsp/members)
+
+* 치료제 발급(관리자권한)
+  * package [com.jinw0909.portfolio.members.*](https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/managers)
+  * view [webapp/WEB-INF/jsp/members/*](https://github.com/jinw0909/PCM/tree/develop/src/main/webapp/WEB-INF/jsp/managers)
+
+* 공지사항 및 댓글 작성
+  * package [com.jinw0909.portfolio.notice.*](https://github.com/jinw0909/PCM/tree/develop/src/main/java/com/jinw0909/portfolio/notice)
+  * view [webapp/WEB-INF/jsp/notice/*](https://github.com/jinw0909/PCM/tree/develop/src/main/webapp/WEB-INF/jsp/notice)
+
 
 DEMO
 -----
