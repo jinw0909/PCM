@@ -82,6 +82,7 @@
 			}
 			if ($("#newPermission").val() == "직급을 설정해주세요") {
 				alert("직급을 설정해주세요");
+				return;
 			} 
 			
 			$.ajax({
