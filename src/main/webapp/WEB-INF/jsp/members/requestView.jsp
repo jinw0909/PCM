@@ -22,8 +22,8 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 	<section class="request-section">
 	<div class="d-flex justify-content-around">
-		<h3>오늘 발급받은 치료제 <span style="font-size: 2.5rem" id="showIssued"></span>개</h3>
-		<h3>오늘 승인받은 요청서 <span style="font-size: 2.5rem" id="countApproval"></span>건</h3>
+		<h3 class="col-6 text-center">오늘 발급받은 치료제 <span style="font-size: 2.5rem" id="showIssued"></span>개</h3>
+		<h3 class="col-6 text-center">오늘 승인받은 요청서 <span style="font-size: 2.5rem" id="countApproval"></span>건</h3>
 	</div>
 	<a href="/members/request_create_view" class="btn btn-primary block w-100 my-3">요청서 작성</a>
 	<table class="table text-center">
