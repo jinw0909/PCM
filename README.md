@@ -10,7 +10,7 @@ http://3.36.112.41:8080/
 
 포트폴리오
 -------
-[포트폴리오.pdf](https://github.com/jinw0909/PCM/blob/develop-original/portfolio.pdf)
+[포트폴리오.pdf](https://github.com/jinw0909/PCM/blob/master/portfolio.pdf)
 
 
 프로젝트 설명
