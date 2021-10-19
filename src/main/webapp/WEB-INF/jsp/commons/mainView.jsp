@@ -20,7 +20,7 @@
 <c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 <div class="main-container container d-flex flex-column justify-content-center">
 	<h5 class="mt-3">${branchSlogan } ${branchName }입니다.</h5>
-	<h2 class="mt-2">오늘 총 <span id="showHeadCount"></span>마리의 포켓몬스터를 치료하였습니다.</h2>
+	<h2 class="mt-2">오늘 총 <span style="font-size: 2.5rem" id="showHeadCount"></span>마리의 포켓몬스터를 치료하였습니다.</h2>
 	<section class="main-section d-flex justify-content-around">
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<div class="d-flex justify-content-center align-items-center main-menu-remedy">

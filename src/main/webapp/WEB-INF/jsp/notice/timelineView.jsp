@@ -33,9 +33,9 @@
 			<c:forEach var="notice" items="${noticeList }" varStatus="status">
 				<hr>
 				<div class="notice-box my-5">
+					<fmt:formatDate var="resultRegDt" value="${notice.notice.createdAt}" pattern="yyyy-MM-dd HH:mm"/>
+					<h4><span>#${notice.notice.id}. </span>${resultRegDt }</h4>
 					<div class="notice bg-light">
-						<fmt:formatDate var="resultRegDt" value="${notice.notice.createdAt}" pattern="yyyy-MM-dd HH:mm"/>
-						<h4>${resultRegDt }</h4>
 						<div class="notice-image">
 							<img src="${notice.notice.imagePath}">
 						</div>

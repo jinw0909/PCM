@@ -21,7 +21,7 @@
 <div class="manage-container container d-flex flex-column justify-content-center">
 <c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 <section class="manage-section d-flex flex-column justify-content-around">
-	<div class="d-flex">
+	<div class="d-flex align-items-center">
 	<c:choose>
 	<c:when test="${requestList.size() eq 0 }">
 		<h3 class="col-6 text-center">처리하지 않은 요청서가 없습니다.</h3>
@@ -53,7 +53,7 @@
 		</tbody>
 	</table>
 	<div class="d-flex justify-content-center">
-		<input type="button" class="btn btn-secondary" value="더보기">
+		<a href type="button" class="btn btn-secondary">더보기</a>
 	</div>
 	<div>
 		<input type="button" id="showTotalSummary" class="btn btn-success block w-50" value="지점별 발급량 현황" data-toggle="modal" data-target="#totalSummary">
